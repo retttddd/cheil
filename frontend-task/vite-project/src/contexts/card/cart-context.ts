@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
-import type { ProductInterface } from '../interfaces/product'
+import type { ProductInterface } from '../../interfaces/product'
 
 interface CartContextType {
   items: ProductInterface[]

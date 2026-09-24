@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { PropsWithChildren } from 'react'
-import type { ProductInterface } from '../interfaces/product'
+import type { ProductInterface } from '../../interfaces/product'
 import { CartContext } from './cart-context'
 
 export function CartProvider({ children }: PropsWithChildren) {

@@ -1,5 +1,5 @@
 import type { ProductInterface } from '../../interfaces/product'
-import { useCartContext } from '../../contexts/cart-context'
+import { useCartContext } from '../../contexts/card/cart-context'
 import { parsePrice } from '../../utils/parse-price'
 import { EnergyClass } from '../energy-class'
 import { ProductPhoto } from '../product-photo'
