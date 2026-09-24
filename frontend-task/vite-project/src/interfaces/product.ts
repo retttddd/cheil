@@ -1,6 +1,13 @@
 export type EnergyClass = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
 
 export type Capacity = 8 | 9 | 10.5
+
+export type Features =
+  | 'Drzwi AddWash™'
+  | 'Panel AI Control'
+  | 'Silnik inwerterowy'
+  | 'Wyświetlacz elektroniczny'
+
 export interface ProductInterface {
   image: string
   code: string
@@ -9,7 +16,7 @@ export interface ProductInterface {
   capacity: Capacity
   titleCapacity?: Capacity
   dimensions: string
-  features: string[]
+  features: Features[]
   energyClass: EnergyClass
   price: {
     value: number

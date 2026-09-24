@@ -1,32 +1,32 @@
 import { useId, useRef, useState } from 'react'
 import './filter.css'
 
-type FilterProps = {
+type FilterProps<Value extends string | number> = {
   title: string
-  values: { value: string; label: string }[]
+  values: { value: Value | ''; label: string }[]
   placeholder?: string
 } & (
-  | { multiple?: false; currentValue: string; setter: (value: string) => void }
-  | { multiple: true; currentValue: string[]; setter: (value: string[]) => void }
+  | { multiple?: false; currentValue: Value | ''; setter: (value: Value | '') => void }
+  | { multiple: true; currentValue: Value[]; setter: (value: Value[]) => void }
 )
 
-export function Filter(props: FilterProps) {
+export function Filter<Value extends string | number>(props: FilterProps<Value>) {
   const { title, values, placeholder = 'Pokaż wszystkie' } = props
   const [isOpen, setIsOpen] = useState(false)
   const id = useId()
   const triggerRef = useRef<HTMLButtonElement>(null)
   const selectedValues = props.multiple
     ? props.currentValue
-    : props.currentValue ? [props.currentValue] : []
+    : props.currentValue !== '' ? [props.currentValue] : []
   const selectedLabel = values
-    .filter(({ value }) => selectedValues.includes(value))
+    .filter(({ value }) => value !== '' && selectedValues.includes(value))
     .map(({ label }) => label)
     .join(', ') || placeholder
 
-  const selectValue = (value: string) => {
+  const selectValue = (value: Value | '') => {
     if (props.multiple) {
       props.setter(
-        !value
+        value === ''
           ? []
           : selectedValues.includes(value)
             ? selectedValues.filter((selected) => selected !== value)
@@ -83,7 +83,7 @@ export function Filter(props: FilterProps) {
             key={value}
             type="button"
             className="filter__option"
-            aria-pressed={value ? selectedValues.includes(value) : selectedValues.length === 0}
+            aria-pressed={value !== '' ? selectedValues.includes(value) : selectedValues.length === 0}
             onClick={() => selectValue(value)}
           >
             {label}

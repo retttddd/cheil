@@ -1,10 +1,19 @@
 import { useState } from 'react'
 import { Filter } from './components/filter'
 import { ProductCard } from './components/product-card'
+import { ProductSearch } from './components/product-search'
+import { useFilterContext } from './contexts/filters/filters-context'
+import type { Sort } from './contexts/filters/filters-context'
+import type { ProductInterface } from './interfaces/product'
 import { mockData } from './mock/data'
 
-const allValues = { value: '', label: 'Wszystkie' }
-const sortValues = [
+const sortComparators: Record<Sort, (a: ProductInterface, b: ProductInterface) => number> = {
+  price: (a, b) => a.price.value - b.price.value,
+  capacity: (a, b) => a.capacity - b.capacity,
+}
+
+const allValues = { value: '' as const, label: 'Wszystkie' }
+const sortValues: { value: Sort | ''; label: string }[] = [
   allValues,
   { value: 'price', label: 'Cena' },
   { value: 'capacity', label: 'Pojemność' },
@@ -26,29 +35,27 @@ const energyClassValues = [
 const capacityValues = [
   allValues,
   ...[...new Set(mockData.map((product) => product.capacity))].map((capacity) => ({
-    value: String(capacity),
+    value: capacity,
     label: `${capacity}kg`,
   })),
 ]
 
 function App() {
-  const [sort, setSort] = useState('')
-  const [features, setFeatures] = useState<string[]>([])
-  const [energyClasses, setEnergyClasses] = useState<string[]>([])
-  const [capacity, setCapacity] = useState('')
+  const { query, setQuery, filters, setFilters } = useFilterContext()
+  const { sort, feature: features, energyClass: energyClasses, capacity } = filters
   const [showAll, setShowAll] = useState(false)
+  const searchQuery = query.trim().toLowerCase()
 
   const products = mockData.filter(
     (product) =>
+      `${product.code} ${product.name}`.toLowerCase().includes(searchQuery) &&
       features.every((feature) => product.features.includes(feature)) &&
       (energyClasses.length === 0 || energyClasses.includes(product.energyClass)) &&
-      (!capacity || String(product.capacity) === capacity),
+      (capacity === '' || product.capacity === capacity),
   )
 
-  if (sort === 'price') {
-    products.sort((a, b) => a.price.value - b.price.value)
-  } else if (sort === 'capacity') {
-    products.sort((a, b) => a.capacity - b.capacity)
+  if (sort) {
+    products.sort(sortComparators[sort])
   }
 
   return (
@@ -57,13 +64,20 @@ function App() {
         <h1>Wybierz urządzenie</h1>
       </header>
       <main>
+        <ProductSearch
+          value={query}
+          onChange={(value) => {
+            setQuery(value)
+            setShowAll(false)
+          }}
+        />
         <div className="filter-block">
           <Filter
             title="Sortuj po:"
             values={sortValues}
             currentValue={sort}
             setter={(value) => {
-              setSort(value)
+              setFilters({ ...filters, sort: value })
               setShowAll(false)
             }}
             placeholder="Popularność"
@@ -74,7 +88,7 @@ function App() {
             values={featureValues}
             currentValue={features}
             setter={(value) => {
-              setFeatures(value)
+              setFilters({ ...filters, feature: value })
               setShowAll(false)
             }}
           />
@@ -84,7 +98,7 @@ function App() {
             values={energyClassValues}
             currentValue={energyClasses}
             setter={(value) => {
-              setEnergyClasses(value)
+              setFilters({ ...filters, energyClass: value })
               setShowAll(false)
             }}
           />
@@ -93,7 +107,7 @@ function App() {
             values={capacityValues}
             currentValue={capacity}
             setter={(value) => {
-              setCapacity(value)
+              setFilters({ ...filters, capacity: value })
               setShowAll(false)
             }}
           />
