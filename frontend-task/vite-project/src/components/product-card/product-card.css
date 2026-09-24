@@ -1,0 +1,111 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 338px;
+  max-width: 100%;
+  padding: 25px 24px;
+  border-radius: 20px;
+  background: #fff;
+  opacity: 1;
+}
+
+.product-card__title {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+  text-box-trim: none;
+  line-height: 22px;
+  letter-spacing: 0;
+  padding-bottom: 21px;
+}
+
+.product-card__specifications {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #767676;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.product-card__specifications p {
+  margin: 0;
+}
+
+.product-card__specifications strong {
+  color: #111;
+  font-weight: 700;
+}
+
+.product-card__energy-class {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #767676;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.product-card__price-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  color: #767676;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.product-card__price-validity {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.product-card__price {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  color: #050505;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.product-card__price-whole {
+  display: inline-flex;
+  gap: 10px;
+  font-size: clamp(30px, 17vw, 40px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.product-card__price-suffix {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-block: 4px 2px;
+  line-height: 1;
+}
+
+.product-card__price-cents {
+  font-size: 16px;
+}
+
+.product-card__price-currency {
+  font-size: 16px;
+}
+
+.product-card__installment {
+  color: #555555;
+  font-size: 16px;
+  margin-top: 4px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.product-card__button {
+  align-self: center;
+  margin-top: 12px;
+}

@@ -1,0 +1,40 @@
+:root {
+  font-family: system-ui, sans-serif;
+  background: #f8f8f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #f8f8f8;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+footer {
+  min-height: 80px;
+  background: #fff;
+}
+
+main {
+  flex: 1;
+  padding: 20px 13%;
+}
+
+.product-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
