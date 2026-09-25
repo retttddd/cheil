@@ -1,4 +1,6 @@
-import { mockData } from '../../mock/data';
+import { useEffect, useState } from 'react';
+import { getProducts } from '../../mock/data';
+import { IProduct } from '../../interfaces/product';
 import { ProductCard } from '../cards/Product';
 import { Button } from '../button';
 import { useFilterContext } from '../../contexts/filters';
@@ -6,8 +8,28 @@ import { ChevronDown } from 'react-feather';
 
 export const Products = () => {
   const { filters, query } = useFilterContext();
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-  const searchByCode = mockData.filter((product) => {
+  useEffect(() => {
+    let active = true;
+
+    const loadProducts = async () => {
+      try {
+        const data = await getProducts();
+        if (active) setProducts(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadProducts();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const searchByCode = products.filter((product) => {
     return product.code.toLowerCase().includes(query.toLowerCase());
   });
 

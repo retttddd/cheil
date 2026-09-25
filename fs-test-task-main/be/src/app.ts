@@ -8,7 +8,14 @@ app.get('/', (_req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
-app.use('/api/products', productRoutes);
+app.use(
+  '/api/products',
+  (_req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); //for development only (on production only fe domain)
+    next();
+  },
+  productRoutes,
+);
 app.use((_req, res) => {
   res.status(404).json({ error: 'Not found' });
 });
