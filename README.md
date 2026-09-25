@@ -3,7 +3,7 @@
 ## Project Structure
 
 - [Frontend task](./frontend-task/) - the React app is in [vite-project](./frontend-task/vite-project/).
-- [Backend task](./fs-test-task-main/) - the full-stack task starter and requirements.
+- [Backend task](./fs-test-task-main/)
 
 ## How to Run
 
@@ -41,3 +41,4 @@ docker compose exec api npm run migrate # (migration script)
 - I did not implement and state manager (zustand or redux) as it was not required for this task and was unnecessary for the current scope. However, current approach allows to scale up potential frontend aplication
 - I did not implement rate limiting, caching, or additional performance optimizations on backend because they were outside the assignment’s requirements and scope. I kept the backend simple; these features can be added later if usage and performance measurements justify them.
 - I do not add frontend to a dockercompose due to initial script in package.json. It specifically runs front-end locally without container '"dev:fe": "cd fe && npm run dev '
+- In commit history i can be shown as two users (rrrtttddd and Jan Stepaniuk due to usage of two machines)
