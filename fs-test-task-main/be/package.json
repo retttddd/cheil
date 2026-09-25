@@ -1,0 +1,22 @@
+{
+  "name": "be",
+  "version": "1.0.0",
+  "description": "backend task",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "node --watch src/app.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/app.js"
+  },
+  "author": "jan",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,2 +1,29 @@
-version: '3'
-# your services for the task
+services:
+  api:
+    build: ./be
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      MONGO_URI: mongodb://mongoadmin:bdung@mongodb:27017/products?authSource=admin
+    depends_on:
+      mongodb:
+        condition: service_healthy # avoiding running without mongodb being ready
+
+  mongodb:
+    image: mongodb/mongodb-community-server:8.0-ubi8
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "100.99.67.113:27017:27017" #for local development only
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: bdung
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand({ ping: 1 }).ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10 #TODO: change to less frequent poller
+
+volumes:
+  mongo_data:
