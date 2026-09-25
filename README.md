@@ -21,8 +21,10 @@ Open the local URL printed in the terminal (usually [http://localhost:5173](http
 ## Backend task
 With startup script:
 ```sh
+yarn install
 yarn run dev:fe
 yarn run dev:be
+docker compose exec api npm run migrate
 ```
 
 With Docker Compose Only:

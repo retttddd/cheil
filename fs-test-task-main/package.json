@@ -4,8 +4,8 @@
   "description": "Full Stack Test Task",
   "main": "index.js",
   "scripts": {
-    "dev:fe": "cd fe && npm run dev -- --host 0.0.0.0",
-    "dev:be": "docker compose up --build"
+    "dev:fe": "cd fe && npm run dev",
+    "dev:be": "docker compose up -d --build --force-recreate api"
   },
   "author": "Illia S",
   "license": "ISC",

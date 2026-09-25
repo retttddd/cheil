@@ -11,11 +11,9 @@ services:
         condition: service_healthy # avoiding running without mongodb being ready
 
   mongodb:
-    image: mongodb/mongodb-community-server:8.0-ubi8
+    image: mongo:7.0
     volumes:
       - mongo_data:/data/db
-    ports:
-      - "100.99.67.113:27017:27017" #for local development only (connect mongo compass)
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongoadmin
       MONGO_INITDB_ROOT_PASSWORD: bdung
